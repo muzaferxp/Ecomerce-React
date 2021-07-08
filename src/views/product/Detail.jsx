@@ -72,10 +72,6 @@ class ProductDetailView extends Component {
                   <dd className="col-sm-9">
                     <button className="btn btn-sm btn-primary p-2 mr-2"></button>
                     <button className="btn btn-sm btn-secondary p-2 mr-2"></button>
-                    <button className="btn btn-sm btn-success p-2 mr-2"></button>
-                    <button className="btn btn-sm btn-danger p-2 mr-2"></button>
-                    <button className="btn btn-sm btn-warning p-2 mr-2"></button>
-                    <button className="btn btn-sm btn-info p-2 mr-2"></button>
                     <button className="btn btn-sm btn-dark p-2 mr-2"></button>
                   </dd>
                 </dl>
