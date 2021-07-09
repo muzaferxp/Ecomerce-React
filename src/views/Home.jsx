@@ -50,22 +50,14 @@ class HomeView extends Component {
 
     function setFilter(){
       cookies.set("title",  document.getElementById("ptitle").value)
-     
       cookies.set("max",  document.getElementById("pmax").value)
       cookies.set("min",  document.getElementById("pmin").value)
       cookies.set("type",  document.getElementById("ptype").value)
-
       window.location.href = '/'
-
-      
     }
     
     const cookies = new Cookies();
-
-    const loggedin = cookies.get('loggedin');
-
-    
-    
+    const loggedin = cookies.get('loggedin');    
       if(loggedin == "false"){
       window.location.href = "/account/signin/"
     } else{
@@ -114,9 +106,9 @@ class HomeView extends Component {
 
       
     
-        <div className="container-fluid bg-light mb-3">
+        <div className="container-fluid bg-light mb-3" style={{minHeight : "100vh"}}>
           <div className="row">
-            <div className='col-2 border rounded card nbg-light p-4'>
+            <div className='col-sm-10 mx-auto  mb-3 col-md-2 border rounded card nbg-light p-4'>
               <p>Welcome <b> {cookies.get('user')}</b> </p>
               <h3 className='text-muter'>
                 Filters
