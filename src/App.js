@@ -11,6 +11,7 @@ import "./App.min.css";
 const HomeView = lazy(() => import("./views/Home"));
 const SignInView = lazy(() => import("./views/account/SignIn"));
 const SignUpView = lazy(() => import("./views/account/SignUp"));
+const Asd = lazy(() => import("./views/account/asd"));
 const ForgotPasswordView = lazy(() => import("./views/account/ForgotPassword"));
 const OrdersView = lazy(() => import("./views/account/Orders"));
 const WishlistView = lazy(() => import("./views/account/Wishlist"));
@@ -44,6 +45,7 @@ function App() {
             <Route exact path="/" component={HomeView} />
             <Route exact path="/account/signin" component={SignInView} />
             <Route exact path="/account/signup" component={SignUpView} />
+            <Route exact path="/account/asd" component={Asd} />
             <Route
               exact
               path="/account/forgotpassword"

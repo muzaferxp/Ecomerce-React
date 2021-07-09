@@ -1,10 +1,37 @@
 import React, { lazy, Component } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+
+import Cookies from 'universal-cookie';
+
+
 const SignInForm = lazy(() => import("../../components/account/SignInForm"));
 
+
 class SignInView extends Component {
-  onSubmit = async (values) => {
-    alert(JSON.stringify(values));
+  onSubmit = async (values) => { 
+    console.log(values)
+    axios.post('https://reactjsproject.pythonanywhere.com/api-signin?mobileNo=' + values['mobileNo'] + "&password=" + values['password'], JSON.stringify(values))
+    .then(response => {
+      console.log(response);
+      if(response.data['status'] == "success"){
+        const cookies = new Cookies();
+        cookies.set('loggedin', 'true', { path: '/' });
+        cookies.set('user', response.data['user'], { path: '/' });
+    
+       window.location.href = '/'
+      }else{
+        alert("Userename or password is incorrect")
+      }
+    
+    }
+      
+        )
+    .catch(error => {
+       
+        console.error('There was an error!', error);
+    });
+    
   };
   render() {
     return (

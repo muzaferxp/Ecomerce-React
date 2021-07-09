@@ -1,7 +1,8 @@
 import React, { lazy, Component } from "react";
 
 
-
+import Cookies from 'universal-cookie';
+import { CookiesProvider } from "react-cookie";
 
 import { Link } from "react-router-dom";
 // import { link45, file, check2all } from "../npm/icon";
@@ -25,6 +26,8 @@ const CardDealsOfTheDay = lazy(() =>
   import("../components/card/CardDealsOfTheDay")
 );
 
+const mydata = lazy(() => import("../data/index"));
+
 
 
 
@@ -41,8 +44,31 @@ class HomeView extends Component {
     IconUpcScan: IconUpcScan,
     IconTools: IconTools,
   };
-
+   
+ 
   render() {
+
+    function setFilter(){
+      cookies.set("title",  document.getElementById("ptitle").value)
+     
+      cookies.set("max",  document.getElementById("pmax").value)
+      cookies.set("min",  document.getElementById("pmin").value)
+      cookies.set("type",  document.getElementById("ptype").value)
+
+      window.location.href = '/'
+
+      
+    }
+    
+    const cookies = new Cookies();
+
+    const loggedin = cookies.get('loggedin');
+
+    
+    
+      if(loggedin == "false"){
+      window.location.href = "/account/signin/"
+    } else{
     const iconProducts = data.iconProducts;
     const rows = [...Array(Math.ceil(iconProducts.length / 4))];
     // chunk the products into the array of rows
@@ -55,6 +81,10 @@ class HomeView extends Component {
         <div className="row g-3">
           {row.map((product, idx) => {
             const ProductImage = this.components[product.img];
+            console.log(product)
+
+            if(product.title.toLocaleLowerCase().includes(cookies.get("title").toLocaleLowerCase())){
+             
             return (
               <div key={idx} className="col-md-3">
                 <CardIcon
@@ -67,33 +97,45 @@ class HomeView extends Component {
                 </CardIcon>
               </div>
             );
+            }
           })}
         </div>
       </div>
     ));
+   
+
+  
 
     return (
-      <React.Fragment>
+
+      
+     
+        <React.Fragment>
+
+      
     
         <div className="container-fluid bg-light mb-3">
           <div className="row">
             <div className='col-2 border rounded card nbg-light p-4'>
+              <p>Welcome <b> {cookies.get('user')}</b> </p>
               <h3 className='text-muter'>
                 Filters
               </h3>
-              <input className='form-control' placeholder='Product Name' /> 
+              <input className='form-control' id='ptitle' defaultValue={cookies.get('title')} placeholder='Product Name'  onkeyup='alert(1)'/> 
 
               <div>
-                <label>
+              <br />  
+              <label>
                   Min Price
                 </label>
-                <input  type='number' className='form-control'  />
+                <input  type='number' id='pmin'  defaultValue={cookies.get('min')}  className='form-control' /><br />
+             
                 <label>
-                  Min Price
+                  Max Price
                 </label>
-                <input  type='number' className='form-control' /><br />
-
-                <select className='form-control' >
+                <input  type='number' id='pmax' defaultValue={cookies.get('max')}  className='form-control'  />
+                <br />
+                <select className='form-control' id='ptype'  defaultValue={cookies.get('type')}  >
                   <option>Phone</option>
                   <option>Laptop</option>
                   <option>TV</option>
@@ -102,12 +144,13 @@ class HomeView extends Component {
 
               
                 <br />
-                <button className='btn  btn-primary'>Save</button>
+                <button onClick={setFilter}  className='btn  btn-primary'>Save</button>
               </div>  
 
 
             </div>
             <div className="col-md-8">
+            <renderdata />
             <Carousel id="elect-product-category1">
                   {carouselContent}
                 </Carousel>
@@ -117,8 +160,11 @@ class HomeView extends Component {
 
         
       </React.Fragment>
+      
+      
     );
   }
+}
 }
 
 export default HomeView;

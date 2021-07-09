@@ -23,7 +23,15 @@ import { ReactComponent as IconPhoneFill } from "bootstrap-icons/icons/phone-fil
 import { ReactComponent as IconShieldLockFill } from "bootstrap-icons/icons/shield-lock-fill.svg";
 
 const SignUpForm = (props) => {
-  const { handleSubmit, submitting, onSubmit, submitFailed } = props;
+  console.log(props)
+
+  const {   handleSubmit, submitting, onSubmit, submitFailed } = props;
+
+  const data = props['data']
+
+  console.log(data)
+
+  
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -34,12 +42,12 @@ const SignUpForm = (props) => {
         <div className="col-md-6">
           <Field
             name="firstName"
+            value= ""
             type="text"
             label="First Name"
             component={renderFormField}
             placeholder="First Name"
-            validate={[required, name]}
-            required={true}
+           
           />
         </div>
         <div className="col-md-6">
@@ -49,8 +57,7 @@ const SignUpForm = (props) => {
             label="Last Name"
             component={renderFormField}
             placeholder="Last Name"
-            validate={[required, name]}
-            required={true}
+          
           />
         </div>
       </div>
@@ -61,8 +68,8 @@ const SignUpForm = (props) => {
         component={renderFormGroupField}
         placeholder="Mobile no without country code"
         icon={IconPhoneFill}
-        validate={[required, maxLengthMobileNo, minLengthMobileNo, digit]}
-        required={true}
+       
+       
         max="999999999999999"
         min="9999"
         className="mb-3"
@@ -74,8 +81,7 @@ const SignUpForm = (props) => {
         component={renderFormGroupField}
         placeholder="******"
         icon={IconShieldLockFill}
-        validate={[required, maxLength20, minLength8]}
-        required={true}
+      
         maxLength="20"
         minLength="8"
         className="mb-3"
